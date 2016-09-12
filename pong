@@ -1,0 +1,70 @@
+//Declaración de variables 
+int posicionBarraJugador = 100;
+int largoDeVentana = 0;
+int altoDeVentana = 0;
+int anchoDeBarra = 10;
+int largoDeBarra = 40;
+int posicionBarraCPU = 100;
+boolean presionandoArriba = false; 
+boolean presionandoAbajo = false;
+int posicionXPelota= 0;
+int posicionYPelota= 0;
+int tamanoPelota = 10;
+
+void setup(){
+size(500,300);
+largoDeVentana = width;
+altoDeVentana = height;
+posicionXPelota = largoDeVentana/2;
+posicionYPelota =  altoDeVentana/2;
+}
+
+void draw(){
+  //verifica si el usario está presionando las teclas de control
+  verificarBotones();
+  //verifica que la barra no se salga del canvas
+  verificarLimitesDeBarra();
+  background(255);
+  fill(200,0,70);
+  noStroke();
+  rect(20,posicionBarraJugador,anchoDeBarra,largoDeBarra);
+  rect(largoDeVentana-20-anchoDeBarra, posicionBarraCPU, anchoDeBarra,largoDeBarra);
+  ellipse(posicionXPelota,posicionYPelota,tamanoPelota,tamanoPelota);
+}
+
+void keyPressed(){
+  //si estoy presionando la tecla w, presionandoArriba = true;
+  if(key == 'w' || key == 'W' ){
+    presionandoArriba = true;
+  }
+  if(key == 's' || key == 'S' ){
+    presionandoAbajo = true;
+  }  
+}
+
+void keyReleased() {
+  if(key == 'w' || key == 'W' ){
+    presionandoArriba = false;
+  }
+  if(key == 's' || key == 'S' ){
+    presionandoAbajo = false;
+  }
+}
+
+void verificarBotones(){
+  if (presionandoArriba == true){
+    posicionBarraJugador -=5;
+  }  
+  if (presionandoAbajo == true){
+    posicionBarraJugador +=5;
+  }
+}
+
+void verificarLimitesDeBarra(){
+  if(posicionBarraJugador <= 0){
+    posicionBarraJugador = 0;
+  }
+  if(posicionBarraJugador >= (altoDeVentana - largoDeBarra)){
+    posicionBarraJugador = (altoDeVentana - largoDeBarra);
+  }
+}
